@@ -37,6 +37,8 @@ public class MainClass {
 		
 		double[] weightedAverages = StatisticsUtils.calculateWeightedAverages(patternsMap, numberOfFeatures);
 		System.out.println(Arrays.toString(weightedAverages));
+		double[] dispersion=StatisticsUtils.calculateDispersion(patternsMap,numberOfFeatures);
+		System.out.println(Arrays.toString(dispersion));
 
 				
 	}

@@ -51,5 +51,22 @@ public class StatisticsUtils {
 		//enter code here
 		return weightedAverages;
 	}
-
+	public static double[] calculateDispersion(Map<Pattern,Integer> patternsMap,int numberOfFeatures){
+		double dispersionArr[]=new double[numberOfFeatures];
+		double n=0;
+		double avg[]=calculateWeightedAverages(patternsMap,numberOfFeatures);
+		for(Map.Entry<Pattern,Integer> entry:patternsMap.entrySet())
+		{
+			Pattern patterObj = entry.getKey();
+			double weight=entry.getValue();
+			double patternV[]=patterObj.getPatternValues();
+			n+=weight;
+			for(int i=0;i<patternV.length;i++){
+				dispersionArr[i]+=(patternV[i]-avg[i])*(patternV[i]-avg[i])*weight;
+			}
+		}
+		for(int i=0;i<numberOfFeatures;i++)
+			dispersionArr[i]=dispersionArr[i]/(n-1);
+		return dispersionArr;
+	}
 }
