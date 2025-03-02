@@ -38,10 +38,19 @@ public class MainClass {
 		double[] weightedAverages = StatisticsUtils.calculateWeightedAverages(patternsMap, numberOfFeatures);
 		System.out.println(Arrays.toString(weightedAverages));
 		double[] dispersion=StatisticsUtils.calculateDispersion(patternsMap,numberOfFeatures);
-		System.out.println(Arrays.toString(dispersion));
+		System.out.println("f)"+	Arrays.toString(dispersion));
+		System.out.print("e)");
+		StatisticsUtils.calculateFrequencyOfOccurrence(patternsMap,numberOfFeatures);
+		StatisticsUtils.displayCovarianceMatrix(patternSet);
+		System.out.print("h)");
+		StatisticsUtils.displayCorrelationMatrix(patternSet,patternsMap,numberOfFeatures);
 
-				
+		double[] averageSquareDeviation=StatisticsUtils.calculateAverageSquareDeviation(patternsMap,numberOfFeatures);
+		System.out.println("i)"+Arrays.toString(averageSquareDeviation));
+		double[][] scaledData = StatisticsUtils.autoScaleFeatures(patternSet);
+		StatisticsUtils.displayTransformedData(scaledData);
 	}
+
 
 
 
