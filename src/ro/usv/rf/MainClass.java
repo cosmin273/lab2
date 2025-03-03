@@ -54,7 +54,39 @@ public class MainClass {
 			}
 			System.out.println();
 		}
-
+		System.out.println("*********************LAB3*******************");
+		double[][] distnate=new double[patternSet.length][patternSet.length];
+		for(int i=0;i<patternSet.length;i++){
+			for(int j=0;j<patternSet.length;j++)
+				distnate[i][j]=DistanceUtils.distCityBlock(patternSet[i],patternSet[j] );
+		}
+		for(int i=0;i<patternSet.length;i++){
+			for(int j=0;j<patternSet.length;j++)
+				System.out.printf(distnate[i][j]+" ");
+			System.out.println();
+		}
+		System.out.println("Cebisev");
+		for(int i=0;i<patternSet.length;i++){
+			for(int j=0;j<patternSet.length;j++)
+				distnate[i][j]=DistanceUtils.distCebisev(patternSet[i],patternSet[j] );
+		}
+		for(int i=0;i<patternSet.length;i++){
+			for(int j=0;j<patternSet.length;j++)
+				System.out.printf(distnate[i][j]+" ");
+			System.out.println();
+		}
+		DistanceMatrix distante=new DistanceMatrix(patternSet);
+		System.out.println(distante);
+		double[][] vecini=distante.neighbors(1);
+		for(int i=0;i<vecini.length;i++){
+			for(int j=0;j<vecini[0].length;j++)
+				System.out.printf(vecini[i][j]+" ");
+			System.out.println();
+		}
+		//distante.toString();
+		/*System.out.println(DistanceUtils.distEuclid(patternSet[0],patternSet[1] ));
+		System.out.println(DistanceUtils.distCebisev(patternSet[0],patternSet[1]));
+		System.out.println(DistanceUtils.distCityBlock(patternSet[0],patternSet[1]));*/
 
 	}
 
