@@ -31,12 +31,13 @@ public class DistanceMatrix {
             double aux;
             for(int j=0;j<matDist.length;j++){
                 for(int k=0;k< matDist.length;k++)
-                    if(vecini[1][k]<vecini[1][j]){
+                    if(vecini[1][k]>vecini[1][j]){
                         aux=vecini[1][k];
                         vecini[1][k]=vecini[1][j];
                         vecini[1][j]=aux;
+                        aux=vecini[0][k];
                         vecini[0][k]=vecini[0][j];
-
+                        vecini[0][j]=aux;
                     }
             }
 
