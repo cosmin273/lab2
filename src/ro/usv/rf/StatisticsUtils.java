@@ -199,49 +199,27 @@ public class StatisticsUtils {
 		}
 		return squareDeviation;
 	}
-	public static double[][] autoScaleFeatures(double[][] dataSet) {
-		int numSamples = dataSet.length;
-		int numFeatures = dataSet[0].length;
+	public static double[][] ScalingFormula(double[][] dataSet, Map<Pattern, Integer> patternsMap, int numberOfFeatures) {
+		int totalPatterns = dataSet.length; // Folosim numărul real de rânduri
 
-		// Calculăm media pentru fiecare caracteristică (coloană)
-		double[] featureMeans = new double[numFeatures];
-		for (int j = 0; j < numFeatures; j++) {
-			double sum = 0;
-			for (int i = 0; i < numSamples; i++) {
-				sum += dataSet[i][j];
-			}
-			featureMeans[j] = sum / numSamples;
-		}
+		// Calculăm media ponderată și deviația standard
+		double[] weightedAverages = calculateWeightedAverages(patternsMap, numberOfFeatures);
+		double[] stdDeviations = calculateAverageSquareDeviation(patternsMap, numberOfFeatures);
 
-		// Aplicăm formula pentru autoscaling
-		double[][] scaledData = new double[numSamples][numFeatures];
-		for (int j = 0; j < numFeatures; j++) {
-			double sumSquaredDiffs = 0;
-			for (int i = 0; i < numSamples; i++) {
-				sumSquaredDiffs += Math.pow(dataSet[i][j] - featureMeans[j], 2);
-			}
-			double sqrtSumSquaredDiffs = Math.sqrt(sumSquaredDiffs);
+		// Construim setul de date autoscalat
+		double[][] scaledData = new double[totalPatterns][numberOfFeatures];
 
-			// Calculăm valorile scalate pentru fiecare exemplu
-			for (int i = 0; i < numSamples; i++) {
-				scaledData[i][j] = (dataSet[i][j] - featureMeans[j]) / sqrtSumSquaredDiffs;
+		for (int i = 0; i < totalPatterns; i++) {
+			for (int j = 0; j < numberOfFeatures; j++) {
+				if (stdDeviations[j] != 0) { // Evităm împărțirea la zero
+					scaledData[i][j] = (dataSet[i][j] - weightedAverages[j]) / stdDeviations[j];
+				} else {
+					scaledData[i][j] = 0; // Dacă deviația este zero, setăm la 0 (evităm NaN)
+				}
 			}
 		}
 
 		return scaledData;
 	}
-
-	// Funcția pentru a afișa rezultatele
-	public static void displayTransformedData(double[][] scaledData) {
-		for (int i = 0; i < scaledData.length; i++) {
-			System.out.printf(String.valueOf(i+1)+". ");
-			for (int j = 0; j < scaledData[i].length; j++) {
-				// Afișăm valorile scalate cu 2 zecimale
-				System.out.printf("%.2f\t", scaledData[i][j]);
-			}
-			System.out.println();
-		}
-	}
-
 
 }
